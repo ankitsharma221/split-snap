@@ -1,0 +1,23 @@
+workflows:
+  android-debug-apk:
+    name: SplitSnap Debug APK
+    max_build_duration: 30
+    environment:
+      flutter: 3.19.6
+      java: 17
+    scripts:
+      - name: Get Flutter packages
+        script: flutter pub get
+      - name: Analyze
+        script: flutter analyze lib test
+      - name: Build debug APK
+        script: flutter build apk --debug --target-platform android-arm,android-arm64
+    artifacts:
+      - build/app/outputs/flutter-apk/app-debug.apk
+    publishing:
+      email:
+        recipients:
+          - your@email.com
+        notify:
+          success: true
+          failure: true
