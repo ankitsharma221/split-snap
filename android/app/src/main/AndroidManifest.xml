@@ -59,16 +59,6 @@
             android:exported="false"
             android:foregroundServiceType="dataSync"/>
 
-        <!-- ── SMS Broadcast receiver ─────────────────────────────────── -->
-        <receiver
-            android:name="com.shounakmulay.telephony.sms.IncomingSmsReceiver"
-            android:exported="true"
-            android:permission="android.permission.BROADCAST_SMS">
-            <intent-filter android:priority="999">
-                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
-            </intent-filter>
-        </receiver>
-
         <!-- ── Boot receiver (restart service after reboot) ───────────── -->
         <receiver
             android:name=".BootReceiver"
