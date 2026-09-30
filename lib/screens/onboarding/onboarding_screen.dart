@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_overlay_window/flutter_overlay_window.dart';
@@ -60,10 +61,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Future<void> _handleStep() async {
     final step = _steps[_step];
-    if (step.isOverlay) {
-      await FlutterOverlayWindow.requestPermission();
-    } else if (step.permission != null) {
-      await step.permission!.request();
+    if (!kIsWeb) {
+      if (step.isOverlay) {
+        await FlutterOverlayWindow.requestPermission();
+      } else if (step.permission != null) {
+        await step.permission!.request();
+      }
     }
     _nextStep();
   }

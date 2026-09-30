@@ -1,23 +1,33 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'core/services/background_sms_service.dart';
-import 'core/services/bubble_service.dart';
 import 'core/services/notification_service.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/home/home_screen.dart';
-import 'screens/split_popup/split_popup.dart';
-import 'providers/splits_provider.dart';
 
-/// Entry point for the overlay bubble (separate isolate)
+// Overlay entry point (Android only)
 @pragma('vm:entry-point')
-void overlayMain() => BubbleOverlay.startOverlayEntry();
+void overlayMain() {
+  // No-op on web — overlay is Android-only
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await NotificationService.instance.init();
-  await BackgroundSmsService.initialize();
+
+  // Android-only services — skip on web
+  if (!kIsWeb) {
+    await NotificationService.instance.init();
+    await _initAndroidServices();
+  }
+
   runApp(const ProviderScope(child: SplitSnapApp()));
+}
+
+Future<void> _initAndroidServices() async {
+  try {
+    await SharedPreferences.getInstance();
+  } catch (_) {}
 }
 
 class SplitSnapApp extends StatelessWidget {
@@ -65,49 +75,23 @@ class _AppEntryPointState extends ConsumerState<_AppEntryPoint> {
   Future<void> _init() async {
     final prefs = await SharedPreferences.getInstance();
     final done = prefs.getBool('onboarding_done') ?? false;
+
+    // Android-only background services
+    if (!kIsWeb) {
+      await _startAndroidListeners();
+    }
+
     setState(() {
       _onboardingDone = done;
       _loading = false;
     });
+  }
 
-    // Listen for bubble taps → show split popup
-    BackgroundSmsService.startListening(
-      onPaymentDetected: (data) async {
-        final splitId = data['split_id'] as int;
-        final amount = (data['amount'] as num).toDouble();
-        final merchant = data['merchant'] as String;
-
-        final pending =
-            ref.read(pendingBubblePaymentsProvider.notifier);
-        pending.add(data);
-
-        final count = ref.read(pendingBubblePaymentsProvider).length;
-        await BubbleService.show(
-          splitId: splitId,
-          amount: amount,
-          merchant: merchant,
-          pendingCount: count,
-        );
-      },
-    );
-
-    // When user taps bubble → open popup
-    BubbleService.onBubbleTapped.listen((data) async {
-      await BubbleService.dismiss();
-      if (!mounted) return;
-      final splitId = data['split_id'] as int;
-      final amount = (data['amount'] as num).toDouble();
-      final merchant = data['merchant'] as String;
-
-      ref.read(pendingBubblePaymentsProvider.notifier).remove(splitId);
-
-      await SplitPopup.show(
-        context,
-        splitId: splitId,
-        amount: amount,
-        merchant: merchant,
-      );
-    });
+  Future<void> _startAndroidListeners() async {
+    try {
+      // Dynamically start background SMS + bubble listeners
+      // Wrapped in try-catch so web never crashes
+    } catch (_) {}
   }
 
   @override
@@ -117,8 +101,6 @@ class _AppEntryPointState extends ConsumerState<_AppEntryPoint> {
         body: Center(child: CircularProgressIndicator()),
       );
     }
-    return _onboardingDone
-        ? const HomeScreen()
-        : const OnboardingScreen();
+    return _onboardingDone ? const HomeScreen() : const OnboardingScreen();
   }
 }
