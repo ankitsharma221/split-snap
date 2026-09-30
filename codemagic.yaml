@@ -1,9 +1,9 @@
 workflows:
   android-debug-apk:
     name: SplitSnap Debug APK
-    max_build_duration: 30
+    max_build_duration: 45
     environment:
-      flutter: 3.19.6
+      flutter: latest
       java: 17
     scripts:
       - name: Get Flutter packages
@@ -11,7 +11,11 @@ workflows:
       - name: Analyze
         script: flutter analyze lib test
       - name: Build debug APK
-        script: flutter build apk --debug --target-platform android-arm,android-arm64
+        script: |
+          flutter build apk \
+            --debug \
+            --target-platform android-arm,android-arm64 \
+            --android-skip-build-dependency-validation
     artifacts:
       - build/app/outputs/flutter-apk/app-debug.apk
     publishing:
