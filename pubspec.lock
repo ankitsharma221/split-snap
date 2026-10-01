@@ -202,34 +202,34 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_local_notifications
-      sha256: "674173fd3c9eda9d4c8528da2ce0ea69f161577495a9cc835a2a4ecd7eadeb35"
+      sha256: ef41ae901e7529e52934feba19ed82827b11baa67336829564aeab3129460610
       url: "https://pub.dev"
     source: hosted
-    version: "17.2.4"
+    version: "18.0.1"
   flutter_local_notifications_linux:
     dependency: transitive
     description:
       name: flutter_local_notifications_linux
-      sha256: c49bd06165cad9beeb79090b18cd1eb0296f4bf4b23b84426e37dd7c027fc3af
+      sha256: "8f685642876742c941b29c32030f6f4f6dacd0e4eaecb3efbb187d6a3812ca01"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.1"
+    version: "5.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
-      sha256: "85f8d07fe708c1bdcf45037f2c0109753b26ae077e9d9e899d55971711a4ea66"
+      sha256: "6c5b83c86bf819cdb177a9247a3722067dd8cc6313827ce7c77a4b238a26fd52"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.0"
+    version: "8.0.0"
   flutter_overlay_window:
     dependency: "direct main"
     description:
       name: flutter_overlay_window
-      sha256: "9a1f3f88386cf8dc526b6b56f1473080e06df1fea2a4eb1ee08f59dfc02ca3f2"
+      sha256: "17988420249da68e421d1b44b511e6113d3de7a9e52c3fbd6d99730508af4580"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.3"
+    version: "0.5.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -300,10 +300,10 @@ packages:
     dependency: "direct main"
     description:
       name: geolocator
-      sha256: "149876cc5207a0f5daf4fdd3bfcf0a0f27258b3fe95108fa084f527ad0568f1b"
+      sha256: f62bcd90459e63210bbf9c35deb6a51c521f992a78de19a1fe5c11704f9530e2
       url: "https://pub.dev"
     source: hosted
-    version: "12.0.0"
+    version: "13.0.4"
   geolocator_android:
     dependency: transitive
     description:
@@ -556,18 +556,18 @@ packages:
     dependency: "direct main"
     description:
       name: permission_handler
-      sha256: "59adad729136f01ea9e35a48f5d1395e25cba6cea552249ddbe9cf950f5d7849"
+      sha256: fe54465bcc62a4564c6e4db337bbaded6c0c0fa6e10487414436d163114784f6
       url: "https://pub.dev"
     source: hosted
-    version: "11.4.0"
+    version: "12.0.3"
   permission_handler_android:
     dependency: transitive
     description:
       name: permission_handler_android
-      sha256: d3971dcdd76182a0c198c096b5db2f0884b0d4196723d21a866fc4cdea057ebc
+      sha256: "1e3bc410ca1bf84662104b100eb126e066cb55791b7451307f9708d4007350e6"
       url: "https://pub.dev"
     source: hosted
-    version: "12.1.0"
+    version: "13.0.1"
   permission_handler_apple:
     dependency: transitive
     description:

@@ -47,8 +47,10 @@ class ContextCaptureService {
       }
 
       return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.medium,
-        timeLimit: const Duration(seconds: 10),
+        locationSettings: AndroidSettings(
+          accuracy: LocationAccuracy.medium,
+          timeLimit: const Duration(seconds: 10),
+        ),
       );
     } catch (_) {
       return null;
